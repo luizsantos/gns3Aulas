@@ -1,9 +1,9 @@
 {
-    "name": "Host",
+    "name": "Router",
     "category": "guest",
     "description": "It have Quagga, that permit Linux turn into a OSPF or RIP router. Added to this, there are tools to use/test a Computer Network like a Client (web browser, ftp, ssh, dhcp, telnet, DNS clients in text mode...) - I use this image in the GNS3 to simulate a Linux Debian/Ubuntu hosts.",
-    "vendor_name": "Canonical",
-    "vendor_url": "http://www.ubuntu.com",
+    "vendor_name": "cyberinfra",
+    "vendor_url": "https://luizsantos.github.io/cyberinfra/",
     "product_name": "Ubuntu",
     "registry_version": 1,
     "status": "stable",
