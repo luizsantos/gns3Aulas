@@ -1,0 +1,19 @@
+{
+    "name": "Host",
+    "category": "guest",
+    "description": "It have Quagga, that permit Linux turn into a OSPF or RIP router. Added to this, there are tools to use/test a Computer Network like a Client (web browser, ftp, ssh, dhcp, telnet, DNS clients in text mode...) - I use this image in the GNS3 to simulate a Linux Debian/Ubuntu hosts.",
+    "vendor_name": "Canonical",
+    "vendor_url": "http://www.ubuntu.com",
+    "product_name": "Ubuntu",
+    "registry_version": 1,
+    "status": "stable",
+    "maintainer": "Prof. Luiz Arthur",
+    "maintainer_email": "luiz.arthur.feitosa.santos@gmail.com",
+    "symbol": "linux_guest.svg",
+    "docker": {
+        "adapters": 4,
+        "image": "luizarthur/cyberinfra:router",
+        "console_type": "telnet",
+        "extra_volumes": ["/etc", "/usr", "/home", "/lib", "/lib64", "/var"]
+    }
+}

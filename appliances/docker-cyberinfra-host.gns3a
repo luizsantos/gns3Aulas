@@ -1,0 +1,19 @@
+{
+    "name": "Host",
+    "category": "guest",
+    "description": "t have Linux tools to use/test a Computer Network like a Client (web browser, ftp, ssh, dhcp, telnet, DNS clients in text mode...) - I use this image in the GNS3 to simulate a Linux Debian/Ubuntu hosts.",
+    "vendor_name": "Canonical",
+    "vendor_url": "http://www.ubuntu.com",
+    "product_name": "Ubuntu",
+    "registry_version": 1,
+    "status": "stable",
+    "maintainer": "Prof. Luiz Arthur",
+    "maintainer_email": "luiz.arthur.feitosa.santos@gmail.com",
+    "symbol": "linux_guest.svg",
+    "docker": {
+        "adapters": 1,
+        "image": "luizarthur/cyberinfra:host",
+        "console_type": "telnet",
+        "extra_volumes": ["/etc", "/usr", "/home", "/lib", "/lib64", "/var"]
+    }
+}
