@@ -28,3 +28,26 @@ if [ "$installGui" = "s" ] || [ "$installGui" = "S" ] || [ "$installGui" = "y" ]
 else
     echo -e "\tPulando a instalação do GNS3-gui..."
 fi
+
+echo -e "\tInstalar o Cisco PacketTracer? (s)im ou (n)ão? Padrão Não.\n"
+read installPT
+if [ "$installPT" = "s" ] || [ "$installPT" = "S" ] || [ "$installPT" = "y" ] || [ "$installPT" = "Y" ] ;  then
+
+	echo -e "\t baixando Cisco PacketTracer\n"
+
+	id="1mup__k4iq0PwcBxlE1XWTzmCl30nGomk"
+	#fname="CiscoPacketTracer_801_Ubuntu_64bit.deb"
+	fname="CiscoPacketTracer_Ubuntu_64bit.deb"
+
+	URL="https://docs.google.com/uc?export=download&id=$id"
+
+	wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate $URL -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=$id" -O $fname && rm -rf /tmp/cookies.txt
+
+	echo -e "\n\tInstalando Cisco PacketTracer\n"
+	sudo apt install ./CiscoPacketTracer_Ubuntu_64bit.deb
+
+	echo -e "\n\tCisco PacketTracer instalado com sucesso...\n"
+else
+    echo -e "\tPulando a instalação do Cisco PacketTracer..."
+fi
+
