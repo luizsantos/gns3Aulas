@@ -17,7 +17,7 @@ sshConf () {
 
 confHost () {
     echo "\nConfigure hostname"
-    echo $hostname > /etc/hostname
+    sudo echo $hostname > /etc/hostname
 }
 
 confGNS3Menu () {
@@ -56,8 +56,17 @@ ciscoPT (){
 }
 
 appliances () {
-    echo "\nGenerate links to templates/appliances...\n"
+    # gerar links para a interface web
+    echo "\nGenerate links to templates/appliances web...\n"
     sudo ln -f -s `pwd`/appliances/*.gns3a /usr/local/lib/python3.8/dist-packages/gns3server/appliances/
+
+    # gerar links para a interface installGui
+    #echo "\nGenerate links to templates/appliances gui...\n"
+    #ln -f -s `pwd`/appliances/*.gns3a /home/gns3/GNS3/appliances/
+
+    # cisco ios
+    sudo ln -f -s `pwd`/appliances/c7200-adventerprisek9-mz.124-24.T5.bin /opt/gns3/images/IOS/
+    sudo md5sum appliances/c7200-adventerprisek9-mz.124-24.T5.bin | cut -d' ' -f1 > /opt/gns3/images/IOS/c7200-adventerprisek9-mz.124-24.T5.bin.md5sum
 }
 
 gns3Cli () {
