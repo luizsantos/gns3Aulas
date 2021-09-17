@@ -1,5 +1,5 @@
 {
-    "name": "Cisco 3640",
+    "name": "Switch L3 - Cisco3640",
     "category": "switch",
     "description": "Cisco 3640 Router/switch",
     "vendor_name": "cyberinfra",
