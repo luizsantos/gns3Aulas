@@ -17,7 +17,7 @@ sshConf () {
 
 confHost () {
     echo "\nConfigure hostname"
-    sudo bash -c 'echo $hostname > /etc/hostname'
+    sudo bash -c 'echo '$hostname' > /etc/hostname'
 }
 
 confGNS3Menu () {
@@ -37,6 +37,16 @@ confGNS3local () {
     sudo cp -f configure/gns3_server.conf /home/gns3/.config/GNS3/2.2/gns3_server.conf
 }
 
+# $1 - idGoogleFile - id of Google Drive File
+# $2 - outFile - name of file
+gDriveDown() {
+    echo "\Downloading from Google Drive"
+
+    URL="https://docs.google.com/uc?export=download&id=$id"
+
+    wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate $URL -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=$1" -O $2 && rm -rf /tmp/cookies.txt
+
+}
 
 ciscoPT (){
     echo "\nDownloading Cisco Packet Tracer...\n"
@@ -66,11 +76,17 @@ appliances () {
 
     # cisco ios
     sudo mkdir /opt/gns3/images/IOS/
+
+    #download file
+    gDriveDown "1uR5e3nsfgvpRE9bNXSok4rZO4HCkqjET" "appliances/c7200-adventerprisek9-mz.124-24.T5.bin"
     sudo ln -f -s `pwd`/appliances/c7200-adventerprisek9-mz.124-24.T5.bin /opt/gns3/images/IOS/
     soma=`md5sum appliances/c7200-adventerprisek9-mz.124-24.T5.bin | awk '{print $1}'`
     sudo bash -c 'echo '$soma' > /opt/gns3/images/IOS/c7200-adventerprisek9-mz.124-24.T5.bin.md5sum'
 
     # cisco ios switch (na verdade é um router, mas vamos usar como switch
+
+    gDriveDown "1sKkWOzx0Cl-TvwGBQufpmmQerAYpSznM" "appliances/c3640-a3js-mz.124-25d.image"
+
     sudo ln -f -s `pwd`/appliances/c3640-a3js-mz.124-25d.image /opt/gns3/images/IOS/
     soma=`md5sum appliances/c3640-a3js-mz.124-25d.image| awk '{print $1}'`
     sudo bash -c 'echo '$soma' > /opt/gns3/images/IOS/c3640-a3js-mz.124-25d.image.image.md5sum'
