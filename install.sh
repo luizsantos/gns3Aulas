@@ -7,36 +7,36 @@ sudo apt update
 # verifica se a configuração do SSH já foi feita ou não
 ssh=0
 
-echo -e "\n\nInstall GNS3 templates/appliances? \n[N/y]\n"
+echo "\n\nInstall GNS3 templates/appliances? \n[N/y]\n"
 read installTemp
 if [ "$installTemp" = "y" ] || [ "$installTemp" = "Y" ] ;  then
-    echo -e "\tInstalling templates/appliances to Computer Network and Cybersecurity classes.\n"
+    echo "\tInstalling templates/appliances to Computer Network and Cybersecurity classes.\n"
     appliances
 else
-    echo -e "\tInstalling templates/appliances canceled!!!\n"
+    echo "\tInstalling templates/appliances canceled!!!\n"
 fi
 
-echo -e "\tInstall GNS3-gui to use graphical interface desktop (to access using SSH)?"
-echo -e "\tAttention: If you not install it, you'll use only web interface do the GNS3 access.\n"
-echo -e "\tInstall? \n[N/y]\n"
+echo "\tInstall GNS3-gui to use graphical interface desktop (to access using SSH)?"
+echo "\tAttention: If you not install it, you'll use only web interface do the GNS3 access.\n"
+echo "\tInstall? \n[N/y]\n"
 read installGui
 
 if [ "$installGui" = "y" ] || [ "$installGui" = "Y" ] ;  then
-    echo -e "\tInstalling GNS3-gui.\n"
+    echo "\tInstalling GNS3-gui.\n"
     gns3Cli
     sshConf
 else
-    echo -e "\tInstalling GNS3-gui canceled!!!\n"
+    echo "\tInstalling GNS3-gui canceled!!!\n"
 fi
 
-echo -e "\tInstall Cisco Packet Tracer (to access using SSH)? \n[N\y]\n"
+echo "\tInstall Cisco Packet Tracer (to access using SSH)? \n[N\y]\n"
 read installPT
 if [ "$installPT" = "s" ] || [ "$installPT" = "S" ] || [ "$installPT" = "y" ] || [ "$installPT" = "Y" ] ;  then
-    echo -e "\tInstalling Cisco Packet Tracer.\n"
+    echo "\tInstalling Cisco Packet Tracer.\n"
     ciscoPT
     sshConf
 else
-    echo -e "\tInstalling Cisco Packet Tracer canceled!!!\n"
+    echo "\tInstalling Cisco Packet Tracer canceled!!!\n"
 fi
 
 sshConf () {
@@ -49,7 +49,7 @@ sshConf () {
 }
 
 ciscoPT (){
-    echo -e "\n\tDownloading Cisco Packet Tracer...\n"
+    echo "\n\tDownloading Cisco Packet Tracer...\n"
 
 	id="1mup__k4iq0PwcBxlE1XWTzmCl30nGomk"
 	#fname="CiscoPacketTracer_801_Ubuntu_64bit.deb"
@@ -59,14 +59,14 @@ ciscoPT (){
 
 	wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate $URL -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=$id" -O $fname && rm -rf /tmp/cookies.txt
 
-	echo -e "\n\tInstall Cisco Packet Trace.\n"
+	echo "\n\tInstall Cisco Packet Trace.\n"
 	sudo apt install ./CiscoPacketTracer_Ubuntu_64bit.deb
 
-	echo -e "\n\tCisco PacketTracer installed...\n"
+	echo "\n\tCisco PacketTracer installed...\n"
 }
 
 appliances () {
-    echo -e "\tGenerate links to templates/appliances...\n"
+    echo "\tGenerate links to templates/appliances...\n"
     sudo ln -s `pwd`/appliances/*.gns3a /usr/local/lib/python3.8/dist-packages/gns3server/appliances/
 }
 
