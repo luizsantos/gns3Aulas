@@ -3,13 +3,33 @@
 # verifica se a configuração do SSH já foi feita ou não
 ssh=0
 
+# hostname
+hostname="utfpr.cm"
+
 sshConf () {
     if [ $ssh -eq 0 ]; then
         echo "\nConfiguring SSH from Linux to access X11 (desktop graphical interface)...\n"
-        sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config-bkp
-        sudo cp configure/sshd_config /etc/ssh/sshd_config
+        sudo cp -f /etc/ssh/sshd_config /etc/ssh/sshd_config-bkp
+        sudo cp -f configure/sshd_config /etc/ssh/sshd_config
         ssh=1
     fi
+}
+
+confHost () {
+    echo "\nConfigure hostname"
+    echo $hostname > /etc/hostname
+}
+
+confGNS3Menu () {
+    echo "\nConfigure GNS3 menu"
+    sudo cp -f /usr/local/bin/gns3welcome.py /usr/local/bin/gns3welcome.py-def
+    sudo cp -f configure/gns3welcome.py /usr/local/bin/gns3welcome.py
+}
+
+confGNS3local () {
+    echo "\nConfigure GNS3 to run on local"
+    sudo cp -f /lib/systemd/system/gns3.service /lib/systemd/system/gns3.service-def
+    sudo cp -f configure/gns3.service /lib/systemd/system/gns3.service
 }
 
 
@@ -48,6 +68,12 @@ echo "\nStarting script to configure GNS3 VM to Computer Network and Cybersecuri
 echo "\nUpdating Ubuntu mirrors"
 sudo apt update
 
+# configurar nome do host
+confHost
+
+# configurar menu do GNS3 server da VM
+confGNS3Menu
+
 #instalar appliances
 echo "\n\nInstall GNS3 templates/appliances? \n[N/y]\n"
 read installTemp
@@ -68,6 +94,8 @@ if [ "$installGui" = "y" ] || [ "$installGui" = "Y" ] ;  then
     echo "\nInstalling GNS3-gui.\n"
     gns3Cli
     sshConf
+    #configurar o GNS3 para executar localmente... caso contrário não salva
+    confGNS3local
 else
     echo "\nInstalling GNS3-gui canceled!!!\n"
 fi
@@ -82,4 +110,8 @@ if [ "$installPT" = "s" ] || [ "$installPT" = "S" ] || [ "$installPT" = "y" ] ||
 else
     echo "\nInstalling Cisco Packet Tracer canceled!!!\n"
 fi
+
+# finalização
+echo "\n\nFinish..."
+echo "\n To menu and hostname works, please reboot system!!!"
 
