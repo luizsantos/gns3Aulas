@@ -22,7 +22,7 @@ confHost () {
 
 confGNS3Menu () {
     echo "\nConfigure GNS3 menu"
-    sudo cp -f /usr/local/bin/gns3welcome.py /usr/local/bin/gns3welcome.py-def
+    sudo cp -f /usr/local/bin/gns3welcome.py /usr/local/bin/gns3welcome.py-bkp
     sudo cp -f configure/gns3welcome.py /usr/local/bin/gns3welcome.py
 }
 
@@ -30,6 +30,11 @@ confGNS3local () {
     echo "\nConfigure GNS3 to run on local"
     sudo cp -f /lib/systemd/system/gns3.service /lib/systemd/system/gns3.service-def
     sudo cp -f configure/gns3.service /lib/systemd/system/gns3.service
+
+    # quando instala a interface gráfica desktop o server muda pedindo a autenticação da interface web, esta configuração vai desabilitar isso e por garantia o usuário/senha vai ser gns3.
+    echo "\nConfigure GNS3 server web password and auth"
+    sudo cp -f /home/gns3/.config/GNS3/2.2/gns3_server.conf /home/gns3/.config/GNS3/2.2/gns3_server.conf-bkp
+    sudo cp -f configure/gns3_server.conf /home/gns3/.config/GNS3/2.2/gns3_server.conf
 }
 
 

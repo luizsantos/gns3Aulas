@@ -277,9 +277,9 @@ def about_UTFPR():
     texto1 = ""
     ip = get_ip()
     if ip:
-        texto1 = "ATENCAO!\nTodas as opcoes a seguir devem ser executadas via ssh -Y gns3@"
+        texto1 = "ATENCAO!\nSe voce nao estiver utilizando o cliente Web, todas as opcoes a seguir devem ser executadas via ssh -Y gns3@"
     else:
-        texto1 = "ATENCAO!\nTodas as opcoes a seguir devem ser executadas via ssh -Y gns3@ip_da_vm "
+        texto1 = "ATENCAO!\nSe voce nao estiver utilizando o cliente Web, todas as opcoes a seguir devem ser executadas via ssh -Y gns3@ip_da_vm "
     texto = """ (senha gns3). Ou seja, essas opcoes/comandos naum devem ser executadas direto na VM.\n 
     * Se voce estiver usando o Windows veja o tutorial em: \n\thttps://luizsantos.github.io/cyberinfra/docs/VMs/configurarVMWindows\n
     * Se voce estiver usando MacOS veja o tutorial em: \n\thttps://luizsantos.github.io/cyberinfra/docs/VMs/configurarVMMac\n
@@ -302,7 +302,7 @@ def vm_information():
     if version is None:
         content += "The GNS3 server is not installed, please manually install it or download a pre-installed VM.\n\n"
     else:
-        content = """Redes/Seguranca UTFPR-CM v1.0
+        content = """Redes/Seguranca UTFPR-CM v4.0
 GNS3 server version: {gns3_version}
 Release channel: {release_channel}
 VM version: {gns3vm_version}
