@@ -1,39 +1,55 @@
 #!/bin/bash
-echo "Iniciando script para configuração da VM do GNS3 para as aulas de Redes de Computadores e Cibersegurança da UTFPR-C"
+echo "\nStarting script to configure GNS3 VM to Computer Network and Cybersecurity classes from UTFPR-CM"
 
-echo "Atualizando lista de pacotes Linux da VM"
+echo "\nUpdating Ubuntu mirrors"
 sudo apt update
 
-echo -e "\n\nInstalar os templates da aula? (s)im ou (n)ão? Padrão Não.\n"
-read installTemp
+# verifica se a configuração do SSH já foi feita ou não
+ssh=0
 
-if [ "$installTemp" = "s" ] || [ "$installTemp" = "S" ] || [ "$installTemp" = "y" ] || [ "$installTemp" = "Y" ] ;  then
-    echo -e "\tGerando links das Appliances do GNS3 para a aula"
-    sudo ln -s `pwd`/appliances/*.gns3a /usr/local/lib/python3.8/dist-packages/gns3server/appliances/
+echo -e "\n\nInstall GNS3 templates/appliances? \n[N/y]\n"
+read installTemp
+if [ "$installTemp" = "y" ] || [ "$installTemp" = "Y" ] ;  then
+    echo -e "\tInstalling templates/appliances to Computer Network and Cybersecurity classes.\n"
+    appliances
 else
-    echo -e "\tPulando a instalação dos templates..."
+    echo -e "\tInstalling templates/appliances canceled!!!\n"
 fi
 
-echo -e "\tInstalar a interface gráfica desktop GNS3-gui? (s)im ou (n)ão? Padrão Não.\n"
-echo -e "\tAtenção - Caso você não instale isso, você utilizará apenas a interface Web para usar o GNS3."
+echo -e "\tInstall GNS3-gui to use graphical interface desktop (to access using SSH)?"
+echo -e "\tAttention: If you not install it, you'll use only web interface do the GNS3 access.\n"
+echo -e "\tInstall? \n[N/y]\n"
 read installGui
 
-if [ "$installGui" = "s" ] || [ "$installGui" = "S" ] || [ "$installGui" = "y" ] || [ "$installGui" = "Y" ] ;  then
-    echo -e "\tPreparando o SSH do Linux para acessar X11 via SSH"
-    sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config-bkp
-    sudo cp configure/sshd_config /etc/ssh/sshd_config
-
-    echo -e "\tInstalando o GNS3-gui, para acessar via SSH"
-    sudo apt install gns3-gui
+if [ "$installGui" = "y" ] || [ "$installGui" = "Y" ] ;  then
+    echo -e "\tInstalling GNS3-gui.\n"
+    gns3Cli
+    sshConf
 else
-    echo -e "\tPulando a instalação do GNS3-gui..."
+    echo -e "\tInstalling GNS3-gui canceled!!!\n"
 fi
 
-echo -e "\tInstalar o Cisco PacketTracer? (s)im ou (n)ão? Padrão Não.\n"
+echo -e "\tInstall Cisco Packet Tracer (to access using SSH)? \n[N\y]\n"
 read installPT
 if [ "$installPT" = "s" ] || [ "$installPT" = "S" ] || [ "$installPT" = "y" ] || [ "$installPT" = "Y" ] ;  then
+    echo -e "\tInstalling Cisco Packet Tracer.\n"
+    ciscoPT
+    sshConf
+else
+    echo -e "\tInstalling Cisco Packet Tracer canceled!!!\n"
+fi
 
-	echo -e "\t baixando Cisco PacketTracer\n"
+sshConf () {
+    if (($ssh == 0)); then
+        echo -e "\n\tConfiguring SSH from Linux to access X11 (desktop graphical interface)...\n"
+        sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config-bkp
+        sudo cp configure/sshd_config /etc/ssh/sshd_config
+        $ssh=1
+    fi
+}
+
+ciscoPT (){
+    echo -e "\n\tDownloading Cisco Packet Tracer...\n"
 
 	id="1mup__k4iq0PwcBxlE1XWTzmCl30nGomk"
 	#fname="CiscoPacketTracer_801_Ubuntu_64bit.deb"
@@ -43,11 +59,18 @@ if [ "$installPT" = "s" ] || [ "$installPT" = "S" ] || [ "$installPT" = "y" ] ||
 
 	wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate $URL -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=$id" -O $fname && rm -rf /tmp/cookies.txt
 
-	echo -e "\n\tInstalando Cisco PacketTracer\n"
+	echo -e "\n\tInstall Cisco Packet Trace.\n"
 	sudo apt install ./CiscoPacketTracer_Ubuntu_64bit.deb
 
-	echo -e "\n\tCisco PacketTracer instalado com sucesso...\n"
-else
-    echo -e "\tPulando a instalação do Cisco PacketTracer..."
-fi
+	echo -e "\n\tCisco PacketTracer installed...\n"
+}
 
+appliances () {
+    echo -e "\tGenerate links to templates/appliances...\n"
+    sudo ln -s `pwd`/appliances/*.gns3a /usr/local/lib/python3.8/dist-packages/gns3server/appliances/
+}
+
+gns3Cli () {
+    sudo apt install gns3-gui
+    sshConf
+}
