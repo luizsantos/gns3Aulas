@@ -1,43 +1,7 @@
 #!/bin/bash
-echo "\nStarting script to configure GNS3 VM to Computer Network and Cybersecurity classes from UTFPR-CM"
-
-echo "\nUpdating Ubuntu mirrors"
-sudo apt update
 
 # verifica se a configuração do SSH já foi feita ou não
 ssh=0
-
-echo "\n\nInstall GNS3 templates/appliances? \n[N/y]\n"
-read installTemp
-if [ "$installTemp" = "y" ] || [ "$installTemp" = "Y" ] ;  then
-    echo "\tInstalling templates/appliances to Computer Network and Cybersecurity classes.\n"
-    appliances
-else
-    echo "\tInstalling templates/appliances canceled!!!\n"
-fi
-
-echo "\tInstall GNS3-gui to use graphical interface desktop (to access using SSH)?"
-echo "\tAttention: If you not install it, you'll use only web interface do the GNS3 access.\n"
-echo "\tInstall? \n[N/y]\n"
-read installGui
-
-if [ "$installGui" = "y" ] || [ "$installGui" = "Y" ] ;  then
-    echo "\tInstalling GNS3-gui.\n"
-    gns3Cli
-    sshConf
-else
-    echo "\tInstalling GNS3-gui canceled!!!\n"
-fi
-
-echo "\tInstall Cisco Packet Tracer (to access using SSH)? \n[N\y]\n"
-read installPT
-if [ "$installPT" = "s" ] || [ "$installPT" = "S" ] || [ "$installPT" = "y" ] || [ "$installPT" = "Y" ] ;  then
-    echo "\tInstalling Cisco Packet Tracer.\n"
-    ciscoPT
-    sshConf
-else
-    echo "\tInstalling Cisco Packet Tracer canceled!!!\n"
-fi
 
 sshConf () {
     if (($ssh == 0)); then
@@ -47,6 +11,7 @@ sshConf () {
         $ssh=1
     fi
 }
+
 
 ciscoPT (){
     echo "\n\tDownloading Cisco Packet Tracer...\n"
@@ -74,3 +39,43 @@ gns3Cli () {
     sudo apt install gns3-gui
     sshConf
 }
+
+
+
+echo "\nStarting script to configure GNS3 VM to Computer Network and Cybersecurity classes from UTFPR-CM"
+
+echo "\nUpdating Ubuntu mirrors"
+sudo apt update
+
+echo "\n\nInstall GNS3 templates/appliances? \n[N/y]\n"
+read installTemp
+if [ "$installTemp" = "y" ] || [ "$installTemp" = "Y" ] ;  then
+    echo "\tInstalling templates/appliances to Computer Network and Cybersecurity classes.\n"
+    appliances
+else
+    echo "\tInstalling templates/appliances canceled!!!\n"
+fi
+
+echo "\n\tInstall GNS3-gui to use graphical interface desktop (to access using SSH)?"
+echo "\tAttention: If you not install it, you'll use only web interface do the GNS3 access.\n"
+echo "\tInstall? \n[N/y]\n"
+read installGui
+
+if [ "$installGui" = "y" ] || [ "$installGui" = "Y" ] ;  then
+    echo "\tInstalling GNS3-gui.\n"
+    gns3Cli
+    sshConf
+else
+    echo "\tInstalling GNS3-gui canceled!!!\n"
+fi
+
+echo "\tInstall Cisco Packet Tracer (to access using SSH)? \n[N\y]\n"
+read installPT
+if [ "$installPT" = "s" ] || [ "$installPT" = "S" ] || [ "$installPT" = "y" ] || [ "$installPT" = "Y" ] ;  then
+    echo "\tInstalling Cisco Packet Tracer.\n"
+    ciscoPT
+    sshConf
+else
+    echo "\tInstalling Cisco Packet Tracer canceled!!!\n"
+fi
+
