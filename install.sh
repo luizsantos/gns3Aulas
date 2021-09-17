@@ -4,8 +4,8 @@
 ssh=0
 
 sshConf () {
-    if (($ssh == 0)); then
-        echo -e "\n\tConfiguring SSH from Linux to access X11 (desktop graphical interface)...\n"
+    if [$ssh -eq 0]; then
+        echo "\n\tConfiguring SSH from Linux to access X11 (desktop graphical interface)...\n"
         sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config-bkp
         sudo cp configure/sshd_config /etc/ssh/sshd_config
         $ssh=1
@@ -32,7 +32,7 @@ ciscoPT (){
 
 appliances () {
     echo "\tGenerate links to templates/appliances...\n"
-    sudo ln -s `pwd`/appliances/*.gns3a /usr/local/lib/python3.8/dist-packages/gns3server/appliances/
+    sudo ln -f -s `pwd`/appliances/*.gns3a /usr/local/lib/python3.8/dist-packages/gns3server/appliances/
 }
 
 gns3Cli () {
@@ -41,12 +41,14 @@ gns3Cli () {
 }
 
 
-
+# Iniciar script
 echo "\nStarting script to configure GNS3 VM to Computer Network and Cybersecurity classes from UTFPR-CM"
 
+# atualizar linux
 echo "\nUpdating Ubuntu mirrors"
 sudo apt update
 
+#instalar appliances
 echo "\n\nInstall GNS3 templates/appliances? \n[N/y]\n"
 read installTemp
 if [ "$installTemp" = "y" ] || [ "$installTemp" = "Y" ] ;  then
@@ -56,9 +58,10 @@ else
     echo "\tInstalling templates/appliances canceled!!!\n"
 fi
 
-echo "\n\tInstall GNS3-gui to use graphical interface desktop (to access using SSH)?"
+#instalar interface gráfica GNS3
+echo "\nInstall GNS3-gui to use graphical interface desktop (to access using SSH)?"
 echo "\tAttention: If you not install it, you'll use only web interface do the GNS3 access.\n"
-echo "\tInstall? \n[N/y]\n"
+echo "Install? \n[N/y]\n"
 read installGui
 
 if [ "$installGui" = "y" ] || [ "$installGui" = "Y" ] ;  then
@@ -69,7 +72,8 @@ else
     echo "\tInstalling GNS3-gui canceled!!!\n"
 fi
 
-echo "\tInstall Cisco Packet Tracer (to access using SSH)? \n[N\y]\n"
+#instalar cisto packet tracer
+echo "\nInstall Cisco Packet Tracer (to access using SSH)? \n[N\y]\n"
 read installPT
 if [ "$installPT" = "s" ] || [ "$installPT" = "S" ] || [ "$installPT" = "y" ] || [ "$installPT" = "Y" ] ;  then
     echo "\tInstalling Cisco Packet Tracer.\n"
