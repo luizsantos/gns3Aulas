@@ -2,7 +2,7 @@
     "name": "Cisco 7200",
     "category": "router",
     "description": "Cisco 7200 Router",
-    "vendor_name": "luiz2",
+    "vendor_name": "cyberinfra",
     "vendor_url": "http://www.cisco.com",
     "documentation_url": "http://www.cisco.com/c/en/us/products/routers/7200-series-routers/index.html",
     "product_name": "7200",

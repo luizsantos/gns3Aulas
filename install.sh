@@ -17,7 +17,7 @@ sshConf () {
 
 confHost () {
     echo "\nConfigure hostname"
-    sudo echo $hostname > /etc/hostname
+    sudo bash -c 'echo $hostname > /etc/hostname'
 }
 
 confGNS3Menu () {
@@ -65,13 +65,33 @@ appliances () {
     #ln -f -s `pwd`/appliances/*.gns3a /home/gns3/GNS3/appliances/
 
     # cisco ios
+    sudo mkdir /opt/gns3/images/IOS/
     sudo ln -f -s `pwd`/appliances/c7200-adventerprisek9-mz.124-24.T5.bin /opt/gns3/images/IOS/
-    sudo md5sum appliances/c7200-adventerprisek9-mz.124-24.T5.bin | cut -d' ' -f1 > /opt/gns3/images/IOS/c7200-adventerprisek9-mz.124-24.T5.bin.md5sum
+    soma=`md5sum appliances/c7200-adventerprisek9-mz.124-24.T5.bin | awk '{print $1}'`
+    sudo bash -c 'echo '$soma' > /opt/gns3/images/IOS/c7200-adventerprisek9-mz.124-24.T5.bin.md5sum'
+
+    # cisco ios switch (na verdade é um router, mas vamos usar como switch
+    sudo ln -f -s `pwd`/appliances/c3640-a3js-mz.124-25d.image /opt/gns3/images/IOS/
+    soma=`md5sum appliances/c3640-a3js-mz.124-25d.image| awk '{print $1}'`
+    sudo bash -c 'echo '$soma' > /opt/gns3/images/IOS/c3640-a3js-mz.124-25d.image.image.md5sum'
 }
 
 gns3Cli () {
+    # install gns3-gui
     sudo apt install gns3-gui
+
+    # configurar o SSH para dar acesso via X11
     sshConf
+
+    # install xfce terminal - pequeno e fácil
+    sudo apt install xfce4-terminal
+
+    # configurar a interface para usar o xfce4-terminal
+    echo "\nConfigure GNS3 gui to use xfce4-terminal"
+    sudo cp -f /home/gns3/.config/GNS3/2.2/gns3_gui.conf /home/gns3/.config/GNS3/2.2/gns3_gui.conf-bkp
+    sudo cp -f configure/gns3_gui.conf /home/gns3/.config/GNS3/2.2/
+
+
 }
 
 
