@@ -2,7 +2,7 @@
     "name": "Cisco 7200",
     "category": "router",
     "description": "Cisco 7200 Router",
-    "vendor_name": "Cisco",
+    "vendor_name": "luiz2",
     "vendor_url": "http://www.cisco.com",
     "documentation_url": "http://www.cisco.com/c/en/us/products/routers/7200-series-routers/index.html",
     "product_name": "7200",
@@ -16,16 +16,18 @@
         "nvram": 512,
         "startup_config": "ios_base_startup-config.txt",
         "slot0": "C7200-IO-FE",
+        "slot1": "PA-GE",
+        "slot2": "PA-GE",
+        "slot3": "PA-GE",
         "midplane": "vxr",
         "npe": "npe-400"
     },
     "images": [
         {
-            "filename": "c7200-adventerprisek9-mz.124-24.T5.image",
+            "filename": "c7200-adventerprisek9-mz.124-24.T5.bin",
             "version": "124-24.T5",
-            "md5sum": "6b89d0d804e1f2bb5b8bda66b5692047",
-            "filesize": 102345240,
-            "download_url": "https://tfr.org/cisco-ios/7200/c7200-adventerprisek9-mz.124-24.T5.bin"
+            "md5sum": "3c4148f62acf56602ce3b371ebae60c9",
+	    "filesize": 45099452 
         }
     ],
     "versions": [
@@ -33,7 +35,7 @@
             "name": "124-24.T5",
             "idlepc": "0x606df838",
             "images": {
-                "image": "c7200-adventerprisek9-mz.124-24.T5.image"
+                "image": "c7200-adventerprisek9-mz.124-24.T5.bin"
             }
         }
     ]
