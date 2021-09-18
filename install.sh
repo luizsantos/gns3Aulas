@@ -40,9 +40,9 @@ confGNS3local () {
 # $1 - idGoogleFile - id of Google Drive File
 # $2 - outFile - name of file
 gDriveDown() {
-    echo "\Downloading from Google Drive"
+    echo "\nDownloading $2 from Google Drive\n"
 
-    URL="https://docs.google.com/uc?export=download&id=$id"
+    URL="https://docs.google.com/uc?export=download&id=$1"
 
     wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate $URL -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=$1" -O $2 && rm -rf /tmp/cookies.txt
 
@@ -51,13 +51,7 @@ gDriveDown() {
 ciscoPT (){
     echo "\nDownloading Cisco Packet Tracer...\n"
 
-	id="1mup__k4iq0PwcBxlE1XWTzmCl30nGomk"
-	#fname="CiscoPacketTracer_801_Ubuntu_64bit.deb"
-	fname="CiscoPacketTracer_Ubuntu_64bit.deb"
-
-	URL="https://docs.google.com/uc?export=download&id=$id"
-
-	wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate $URL -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=$id" -O $fname && rm -rf /tmp/cookies.txt
+	gDriveDown "1mup__k4iq0PwcBxlE1XWTzmCl30nGomk" "CiscoPacketTracer_Ubuntu_64bit.deb"
 
 	echo "\nInstall Cisco Packet Trace.\n"
 	sudo apt install ./CiscoPacketTracer_Ubuntu_64bit.deb
@@ -84,7 +78,6 @@ appliances () {
     sudo bash -c 'echo '$soma' > /opt/gns3/images/IOS/c7200-adventerprisek9-mz.124-24.T5.bin.md5sum'
 
     # cisco ios switch (na verdade é um router, mas vamos usar como switch
-
     gDriveDown "1sKkWOzx0Cl-TvwGBQufpmmQerAYpSznM" "appliances/c3640-a3js-mz.124-25d.image"
 
     sudo ln -f -s `pwd`/appliances/c3640-a3js-mz.124-25d.image /opt/gns3/images/IOS/
