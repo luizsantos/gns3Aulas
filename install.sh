@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# verifica se a configuração do SSH já foi feita ou não
+# verifica se a configuração do SSH já foi feita ou não -
 ssh=0
 
 # hostname
