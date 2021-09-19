@@ -58,7 +58,7 @@ echo "\nVerify if $2 exists and it's correct..."
         echo "\nFile $2 already exists..."
         # verify if md5sum files
         md5FromFile=`md5sum $file7200`
-        if [ "$3" == "$md5FromFile" ]; then
+        if [ "$3" = "$md5FromFile" ]; then
             echo "\nMD5 from file $2 is correct..."
         else
             echo "$2 exists but is corrupted! Download..."
