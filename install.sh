@@ -122,7 +122,7 @@ appliances () {
     echo "\nCoping icons..."
     sudo cp icons/routerLinux.svg /usr/local/lib/python3.8/dist-packages/gns3server/symbols/classic/
 
-    echo "\nCondigure templates"
+    echo "\nConfigure templates"
     sudo cp configure/gns3_controller.conf /home/gns3/.config/GNS3/2.2/
     sudo chown gns3.gns3 /home/gns3/.config/GNS3/2.2/*
 }
@@ -194,6 +194,10 @@ if [ "$installPT" = "s" ] || [ "$installPT" = "S" ] || [ "$installPT" = "y" ] ||
 else
     echo "\nInstalling Cisco Packet Tracer canceled!!!\n"
 fi
+
+echo "\nInstall vim-tiny to professor :-p"
+sudo apt install -y vim-tiny
+cp /usr/share/vim/vimrc ~/.vimrc
 
 # finalização
 echo "\n\nFinish..."
