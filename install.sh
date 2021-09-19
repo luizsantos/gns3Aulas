@@ -35,6 +35,7 @@ confGNS3local () {
     echo "\nConfigure GNS3 server web password and auth"
     sudo cp -f /home/gns3/.config/GNS3/2.2/gns3_server.conf /home/gns3/.config/GNS3/2.2/gns3_server.conf-bkp
     sudo cp -f configure/gns3_server.conf /home/gns3/.config/GNS3/2.2/gns3_server.conf
+    sudo chown gns3.gns3 /home/gns3/.config/GNS3/2.2/*
 }
 
 # $1 - idGoogleFile - id of Google Drive File
@@ -48,10 +49,35 @@ gDriveDown() {
 
 }
 
+# $1 - idGoogleFile - id of Google Drive File
+# $2 - outFile - name of file
+# $3 - md5sum
+gDriveDownVerify() {
+echo "\nVerify if $2 exists and it's correct..."
+ if [ -f "$2" ]; then
+        echo "\nFile $2 already exists..."
+        # verify if md5sum files
+        md5FromFile=`md5sum $file7200`
+        if [ "$3" == "$md5FromFile" ]; then
+            echo "\nMD5 from file $2 is correct..."
+        else
+            echo "$2 exists but is corrupted! Download..."
+            gDriveDown $1 $2
+        fi
+ else
+    echo "$2 not exists! Download..."
+    gDriveDown $1 $2
+ fi
+
+}
+
 ciscoPT (){
     echo "\nDownloading Cisco Packet Tracer...\n"
 
-	gDriveDown "1mup__k4iq0PwcBxlE1XWTzmCl30nGomk" "CiscoPacketTracer_Ubuntu_64bit.deb"
+    fileCPT="CiscoPacketTracer_Ubuntu_64bit.deb"
+    md5_CPT="ec93f1258ff9d8005882007e8e23cfe6"
+
+	gDriveDown "1mup__k4iq0PwcBxlE1XWTzmCl30nGomk" $fileCPT $md5_CPT
 
 	echo "\nInstall Cisco Packet Trace.\n"
 	sudo apt install ./CiscoPacketTracer_Ubuntu_64bit.deb
@@ -72,17 +98,33 @@ appliances () {
     sudo mkdir /opt/gns3/images/IOS/
 
     #download file
-    gDriveDown "1uR5e3nsfgvpRE9bNXSok4rZO4HCkqjET" "appliances/c7200-adventerprisek9-mz.124-24.T5.bin"
+
+    file7200="appliances/c7200-adventerprisek9-mz.124-24.T5.bin"
+    md5_7200="3c4148f62acf56602ce3b371ebae60c9"
+
+    gDriveDownVerify "1uR5e3nsfgvpRE9bNXSok4rZO4HCkqjET" $file7200 $md5_7200
     sudo ln -f -s `pwd`/appliances/c7200-adventerprisek9-mz.124-24.T5.bin /opt/gns3/images/IOS/
     soma=`md5sum appliances/c7200-adventerprisek9-mz.124-24.T5.bin | awk '{print $1}'`
     sudo bash -c 'echo '$soma' > /opt/gns3/images/IOS/c7200-adventerprisek9-mz.124-24.T5.bin.md5sum'
 
+
+    file3640="appliances/c3640-a3js-mz.124-25d.image"
+    md5_3640="493c4ef6578801d74d715e7d11596964"
+
     # cisco ios switch (na verdade é um router, mas vamos usar como switch
-    gDriveDown "1sKkWOzx0Cl-TvwGBQufpmmQerAYpSznM" "appliances/c3640-a3js-mz.124-25d.image"
+    gDriveDownVerify "1sKkWOzx0Cl-TvwGBQufpmmQerAYpSznM" $file3640 $md5_3640
 
     sudo ln -f -s `pwd`/appliances/c3640-a3js-mz.124-25d.image /opt/gns3/images/IOS/
     soma=`md5sum appliances/c3640-a3js-mz.124-25d.image| awk '{print $1}'`
     sudo bash -c 'echo '$soma' > /opt/gns3/images/IOS/c3640-a3js-mz.124-25d.image.image.md5sum'
+
+    # add templates and icons
+    echo "\nCoping icons..."
+    sudo cp icons/routerLinux.svg /usr/local/lib/python3.8/dist-packages/gns3server/symbols/classic/
+
+    echo "\nCondigure templates"
+    sudo cp configure/gns3_controller.conf /home/gns3/.config/GNS3/2.2/
+    sudo chown gns3.gns3 /home/gns3/.config/GNS3/2.2/*
 }
 
 gns3Cli () {
@@ -99,8 +141,7 @@ gns3Cli () {
     echo "\nConfigure GNS3 gui to use xfce4-terminal"
     sudo cp -f /home/gns3/.config/GNS3/2.2/gns3_gui.conf /home/gns3/.config/GNS3/2.2/gns3_gui.conf-bkp
     sudo cp -f configure/gns3_gui.conf /home/gns3/.config/GNS3/2.2/
-
-
+    sudo chown gns3.gns3 /home/gns3/.config/GNS3/2.2/*
 }
 
 

@@ -1,5 +1,5 @@
 {
-    "name": "Cisco 7200",
+    "name": "Cisco 7200 - Router",
     "category": "router",
     "description": "Cisco 7200 Router",
     "vendor_name": "cyberinfra",
