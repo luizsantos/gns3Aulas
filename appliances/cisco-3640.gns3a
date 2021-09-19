@@ -7,7 +7,7 @@
     "documentation_url": "http://www.cisco.com/c/en/us/support/index.html",
     "product_name": "3640",
     "registry_version": 3,
-    "default_name_format": "SW{0}",
+    "default_name_format": "L3_Sw{0}",
     "status": "experimental",
     "maintainer": "GNS3 Team",
     "maintainer_email": "developers@gns3.net",
