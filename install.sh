@@ -9,7 +9,7 @@ $ $ ./install.sh
 ssh=0
 
 # hostname
-hostname="utfpr.cm"
+hostname="utfpr40.cm"
 
 sshConf () {
     if [ $ssh -eq 0 ]; then
