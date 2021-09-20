@@ -4,7 +4,7 @@
 # $ sh install.sh
 # or
 # $ ./install.sh
-eco = "/bin/echo -e"
+eco="/bin/echo -e"
 
 # verifica se a configuração do SSH já foi feita ou não -
 ssh=0
