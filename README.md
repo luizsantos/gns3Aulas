@@ -32,7 +32,10 @@ $ ./install.sh
 
 4. Após isso responda as perguntas do script, que basicamente são:
 * Instalar appliances/templates no GNS3?
-> Os appliances são: i. um host Linux para simular clientes de rede no modo texto - é um docker; ii. um roteador Linux (com o Quagga); iii. um roteador Cisco 7200; iv. um switch Camada 3 Cisco 3640 (estou usando esse como switch, pois o GNS3 tem problemas com switchs Cisco L2, mas ele é também um roteador - não quero usar o qemu);
+> Os appliances são:
+> i. um host Linux para simular clientes de rede no modo texto - é um docker;
+> ii. um roteador Linux (com o Quagga); iii. um roteador Cisco 7200;
+> iv. um switch Camada 3 Cisco 3640 (estou usando esse como switch, pois o GNS3 tem problemas com switchs Cisco L2, mas ele é também um roteador - não quero usar o qemu);
 * Instalar o GNS3-gui, para acessar o GNS3 com uma interface gráfica desktop, via X11/SSH?
 * Instalar o Cisco Packet Tracer para usar via X11/SSH? (útil para alunos que não têm problemas em instalar o Cisco Packet Tracer - assim temos dois simuladores na mesma VM).
 
