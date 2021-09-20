@@ -201,11 +201,11 @@ else
     $eco "\nInstalling Cisco Packet Tracer canceled!!!\n"
 fi
 
-echo "\nInstall vim-tiny to professor :-p"
+$eco "\nInstall vim-tiny to professor :-p"
 sudo apt install -y vim-tiny
 cp /usr/share/vim/vimrc ~/.vimrc
 
 # finalização
-echo "\n\nFinished..."
-echo "\n To menu and hostname works, please reboot system!!!"
+$eco "\n\nFinished..."
+$eco "\n To menu and hostname works, please reboot system!!!"
 
