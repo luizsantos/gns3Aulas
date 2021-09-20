@@ -3,6 +3,9 @@ Arquivos e script para configuração da VM do GNS3 para as aulas de Redes de Co
 
 ## Instalação
 
+Tudo inicia baixando a VM do GNS3 em <https://www.gns3.com/software/download-vm>. Depois de acessar tal VM via ``SSH -Y``, execute os passos/comandos a seguir:
+
+
 1. Clone o projeto ou faça o _download_:
 
 ```console
