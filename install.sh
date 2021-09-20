@@ -3,7 +3,8 @@
 # to execute:
 # $ sh install.sh
 # or
-$ $ ./install.sh
+# $ ./install.sh
+eco = "/bin/echo -e"
 
 # verifica se a configuração do SSH já foi feita ou não -
 ssh=0
@@ -13,7 +14,7 @@ hostname="utfpr40.cm"
 
 sshConf () {
     if [ $ssh -eq 0 ]; then
-        echo "\nConfiguring SSH from Linux to access X11 (desktop graphical interface)...\n"
+        $eco "\nConfiguring SSH from Linux to access X11 (desktop graphical interface)...\n"
         sudo cp -f /etc/ssh/sshd_config /etc/ssh/sshd_config-bkp
         sudo cp -f configure/sshd_config /etc/ssh/sshd_config
         ssh=1
@@ -21,23 +22,23 @@ sshConf () {
 }
 
 confHost () {
-    echo "\nConfigure hostname"
+    $eco "\nConfigure hostname"
     sudo bash -c 'echo '$hostname' > /etc/hostname'
 }
 
 confGNS3Menu () {
-    echo "\nConfigure GNS3 menu"
+    $eco "\nConfigure GNS3 menu"
     sudo cp -f /usr/local/bin/gns3welcome.py /usr/local/bin/gns3welcome.py-bkp
     sudo cp -f configure/gns3welcome.py /usr/local/bin/gns3welcome.py
 }
 
 confGNS3local () {
-    echo "\nConfigure GNS3 to run on local"
+    $eco "\nConfigure GNS3 to run on local"
     sudo cp -f /lib/systemd/system/gns3.service /lib/systemd/system/gns3.service-def
     sudo cp -f configure/gns3.service /lib/systemd/system/gns3.service
 
     # quando instala a interface gráfica desktop o server muda pedindo a autenticação da interface web, esta configuração vai desabilitar isso e por garantia o usuário/senha vai ser gns3.
-    echo "\nConfigure GNS3 server web password and auth"
+    $eco "\nConfigure GNS3 server web password and auth"
     sudo cp -f /home/gns3/.config/GNS3/2.2/gns3_server.conf /home/gns3/.config/GNS3/2.2/gns3_server.conf-bkp
     sudo cp -f configure/gns3_server.conf /home/gns3/.config/GNS3/2.2/gns3_server.conf
     sudo chown gns3.gns3 /home/gns3/.config/GNS3/2.2/*
@@ -46,7 +47,7 @@ confGNS3local () {
 # $1 - idGoogleFile - id of Google Drive File
 # $2 - outFile - name of file
 gDriveDown() {
-    echo "\nDownloading $2 from Google Drive\n"
+    $eco "\nDownloading $2 from Google Drive\n"
 
     URL="https://docs.google.com/uc?export=download&id=$1"
 
@@ -58,41 +59,41 @@ gDriveDown() {
 # $2 - outFile - name of file
 # $3 - md5sum
 gDriveDownVerify() {
-echo "\nVerify if $2 exists and it's correct..."
+$eco "\nVerify if $2 exists and it's correct..."
  if [ -f "$2" ]; then
-        echo "\nFile $2 already exists..."
+        $eco "\nFile $2 already exists..."
         # verify if md5sum files
         md5FromFile=`md5sum $2 | awk '{print $1}'`
         if [ "$3" = "$md5FromFile" ]; then
-            echo "\nMD5 from file $2 is correct..."
+            $eco "\nMD5 from file $2 is correct..."
         else
-            echo "$2 exists but is corrupted! Download..."
+            $eco "$2 exists but is corrupted! Download..."
             gDriveDown $1 $2
         fi
  else
-    echo "$2 not exists! Download..."
+    $eco "$2 not exists! Download..."
     gDriveDown $1 $2
  fi
 
 }
 
 ciscoPT (){
-    echo "\nDownloading Cisco Packet Tracer...\n"
+    $eco "\nDownloading Cisco Packet Tracer...\n"
 
     fileCPT="CiscoPacketTracer_Ubuntu_64bit.deb"
     md5_CPT="ec93f1258ff9d8005882007e8e23cfe6"
 
 	gDriveDown "1mup__k4iq0PwcBxlE1XWTzmCl30nGomk" $fileCPT $md5_CPT
 
-	echo "\nInstall Cisco Packet Trace.\n"
+	$eco "\nInstall Cisco Packet Trace.\n"
 	sudo apt -y install ./CiscoPacketTracer_Ubuntu_64bit.deb
 
-	echo "\nCisco PacketTracer installed...\n"
+	$eco "\nCisco PacketTracer installed...\n"
 }
 
 appliances () {
     # gerar links para a interface web
-    echo "\nGenerate links to templates/appliances web...\n"
+    $eco "\nGenerate links to templates/appliances web...\n"
     sudo ln -f -s `pwd`/appliances/*.gns3a /usr/local/lib/python3.8/dist-packages/gns3server/appliances/
 
     # gerar links para a interface installGui
@@ -124,10 +125,10 @@ appliances () {
     sudo bash -c 'echo '$soma' > /opt/gns3/images/IOS/c3640-a3js-mz.124-25d.image.image.md5sum'
 
     # add templates and icons
-    echo "\nCoping icons..."
+    $eco "\nCoping icons..."
     sudo cp icons/routerLinux.svg /usr/local/lib/python3.8/dist-packages/gns3server/symbols/classic/
 
-    echo "\nConfigure templates"
+    $eco "\nConfigure templates"
     sudo cp configure/gns3_controller.conf /home/gns3/.config/GNS3/2.2/
     sudo chown gns3.gns3 /home/gns3/.config/GNS3/2.2/*
 }
@@ -143,7 +144,7 @@ gns3Cli () {
     sudo apt -y install xfce4-terminal
 
     # configurar a interface para usar o xfce4-terminal
-    echo "\nConfigure GNS3 gui to use xfce4-terminal"
+    $eco "\nConfigure GNS3 gui to use xfce4-terminal"
     sudo cp -f /home/gns3/.config/GNS3/2.2/gns3_gui.conf /home/gns3/.config/GNS3/2.2/gns3_gui.conf-bkp
     sudo cp -f configure/gns3_gui.conf /home/gns3/.config/GNS3/2.2/
     sudo chown gns3.gns3 /home/gns3/.config/GNS3/2.2/*
@@ -151,10 +152,10 @@ gns3Cli () {
 
 
 # Iniciar script
-echo "\nStarting script to configure GNS3 VM to Computer Network and Cybersecurity classes from UTFPR-CM"
+$eco "\nStarting script to configure GNS3 VM to Computer Network and Cybersecurity classes from UTFPR-CM"
 
 # atualizar linux
-echo "\nUpdating Ubuntu mirrors"
+$eco "\nUpdating Ubuntu mirrors"
 sudo apt update
 
 # configurar nome do host
@@ -164,40 +165,40 @@ confHost
 confGNS3Menu
 
 #instalar appliances
-echo "\n\nInstall GNS3 templates/appliances? \n[N/y]\n"
+$eco "\n\nInstall GNS3 templates/appliances? \n[N/y]\n"
 read installTemp
 if [ "$installTemp" = "y" ] || [ "$installTemp" = "Y" ] ;  then
-    echo "\nInstalling templates/appliances to Computer Network and Cybersecurity classes.\n"
+    $eco "\nInstalling templates/appliances to Computer Network and Cybersecurity classes.\n"
     appliances
 else
-    echo "\nInstalling templates/appliances canceled!!!\n"
+    $eco "\nInstalling templates/appliances canceled!!!\n"
 fi
 
 #instalar interface gráfica GNS3
-echo "\nInstall GNS3-gui to use graphical interface desktop (to access using SSH)?"
-echo "\n Attention: If you not install it, you'll use only web interface do the GNS3 access.\n"
-echo "Install? \n[N/y]\n"
+$eco "\nInstall GNS3-gui to use graphical interface desktop (to access using SSH)?"
+$eco "\n Attention: If you not install it, you'll use only web interface do the GNS3 access.\n"
+$eco "Install? \n[N/y]\n"
 read installGui
 
 if [ "$installGui" = "y" ] || [ "$installGui" = "Y" ] ;  then
-    echo "\nInstalling GNS3-gui.\n"
+    $eco "\nInstalling GNS3-gui.\n"
     gns3Cli
     sshConf
     #configurar o GNS3 para executar localmente... caso contrário não salva
     confGNS3local
 else
-    echo "\nInstalling GNS3-gui canceled!!!\n"
+    $eco "\nInstalling GNS3-gui canceled!!!\n"
 fi
 
 #instalar cisto packet tracer
-echo "\nInstall Cisco Packet Tracer (to access using SSH)? \n[N\y]\n"
+$eco "\nInstall Cisco Packet Tracer (to access using SSH)? \n[N\y]\n"
 read installPT
 if [ "$installPT" = "s" ] || [ "$installPT" = "S" ] || [ "$installPT" = "y" ] || [ "$installPT" = "Y" ] ;  then
-    echo "\nInstalling Cisco Packet Tracer.\n"
+    $eco "\nInstalling Cisco Packet Tracer.\n"
     ciscoPT
     sshConf
 else
-    echo "\nInstalling Cisco Packet Tracer canceled!!!\n"
+    $eco "\nInstalling Cisco Packet Tracer canceled!!!\n"
 fi
 
 echo "\nInstall vim-tiny to professor :-p"
@@ -205,6 +206,6 @@ sudo apt install -y vim-tiny
 cp /usr/share/vim/vimrc ~/.vimrc
 
 # finalização
-echo "\n\nFinish..."
+echo "\n\nFinished..."
 echo "\n To menu and hostname works, please reboot system!!!"
 
