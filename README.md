@@ -42,3 +42,5 @@ $ ./install.sh
 * Instalar o Cisco Packet Tracer para usar via X11/SSH? (útil para alunos que não têm problemas em instalar o Cisco Packet Tracer - assim temos dois simuladores na mesma VM).
 
 
+# Atenção!
+> __Não apagar o diretório do projeto__, depois de terminar a instalação, pois as imagens dos roteadores ficarão dentro deste diretório para economizar espaço na VM.
