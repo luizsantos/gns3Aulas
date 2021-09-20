@@ -85,7 +85,7 @@ ciscoPT (){
 	gDriveDown "1mup__k4iq0PwcBxlE1XWTzmCl30nGomk" $fileCPT $md5_CPT
 
 	echo "\nInstall Cisco Packet Trace.\n"
-	sudo apt install ./CiscoPacketTracer_Ubuntu_64bit.deb
+	sudo apt -y install ./CiscoPacketTracer_Ubuntu_64bit.deb
 
 	echo "\nCisco PacketTracer installed...\n"
 }
@@ -134,13 +134,13 @@ appliances () {
 
 gns3Cli () {
     # install gns3-gui
-    sudo apt install gns3-gui
+    sudo apt -y install gns3-gui
 
     # configurar o SSH para dar acesso via X11
     sshConf
 
     # install xfce terminal - pequeno e fácil
-    sudo apt install xfce4-terminal
+    sudo apt -y install xfce4-terminal
 
     # configurar a interface para usar o xfce4-terminal
     echo "\nConfigure GNS3 gui to use xfce4-terminal"
