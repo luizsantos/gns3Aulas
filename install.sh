@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# to execute:
+# $ sh install.sh
+# or
+$ $ ./install.sh
+
 # verifica se a configuração do SSH já foi feita ou não -
 ssh=0
 
