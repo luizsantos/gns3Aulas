@@ -10,8 +10,7 @@ eco="/bin/echo -e"
 ssh=0
 
 # hostname
-hostname="utfpr2023.cm"
-userDir=$(users)
+hostname="utfpr40.cm"
 
 sshConf () {
     if [ $ssh -eq 0 ]; then
@@ -23,27 +22,8 @@ sshConf () {
 }
 
 confHost () {
-    $eco "\nDo you want change the hostname to $hostname?\n[N/y]\n Just for control.\n"
-    read installTemp
-    if [ "$installTemp" = "y" ] || [ "$installTemp" = "Y" ] ;  then
-        $eco "\nConfigure hostname"
-        sudo bash -c 'echo '$hostname' > /etc/hostname'
-    else
-        $eco "\nOK, We won't change hostname!!!\n"
-    fi
-}
-
-confX () {
-    $eco "\nInstaling some X11 packets to run GNS3 gui interface into de VM/host.\n"
-    apt update && apt install -y ubuntu-drivers-common mesa-utils mesa-utils-extra gnupg numlockx xautolock scrot xorg xserver-xorg xtightvncviewer qemu-system-gui
-
-    $eco "\nCopying i3 config file\n"
-    mkdir -p /home/$userDir/.config/i3/
-    cp configure/i3-config /home/$userDir/.config/i3/config
-
-    $eco "\nCopying xinitrc config file\n"
-    cp configure/xinitrc /home/$userDir/.xinitrc
-
+    $eco "\nConfigure hostname"
+    sudo bash -c 'echo '$hostname' > /etc/hostname'
 }
 
 confGNS3Menu () {
@@ -59,9 +39,9 @@ confGNS3local () {
 
     # quando instala a interface gráfica desktop o server muda pedindo a autenticação da interface web, esta configuração vai desabilitar isso e por garantia o usuário/senha vai ser gns3.
     $eco "\nConfigure GNS3 server web password and auth"
-    sudo cp -f /home/$userDir/.config/GNS3/2.2/gns3_server.conf /home/$userDir/.config/GNS3/2.2/gns3_server.conf-bkp
-    sudo cp -f configure/gns3_server.conf /home/$userDir/.config/GNS3/2.2/gns3_server.conf
-    sudo chown gns3.gns3 /home/$userDir/.config/GNS3/2.2/*
+    sudo cp -f /home/gns3/.config/GNS3/2.2/gns3_server.conf /home/gns3/.config/GNS3/2.2/gns3_server.conf-bkp
+    sudo cp -f configure/gns3_server.conf /home/gns3/.config/GNS3/2.2/gns3_server.conf
+    sudo chown gns3.gns3 /home/gns3/.config/GNS3/2.2/*
 }
 
 # $1 - idGoogleFile - id of Google Drive File
@@ -111,17 +91,6 @@ ciscoPT (){
 	$eco "\nCisco PacketTracer installed...\n"
 }
 
-openBSDimg () {
-    $eco "\nDownloading OpenBSD qemu image...\n"
-    fileOBSD="/usr/local/lib/python3.8/dist-packages/gns3server/disks/obsd2023.qcow2"
-    md5OBSD="a315d9eb2e7d07dcd50f379e182651b1"
-
-    gDriveDown "18dazxHHl_wiBLGfyzpM65-RWUvSgvxlJ" $fileOBSD $md5OBSD
-
-    $eco "\nOpenBSD qemu done...\n"
-
-}
-
 appliances () {
     # gerar links para a interface web
     $eco "\nGenerate links to templates/appliances web...\n"
@@ -129,7 +98,7 @@ appliances () {
 
     # gerar links para a interface installGui
     #echo "\nGenerate links to templates/appliances gui...\n"
-    #ln -f -s `pwd`/appliances/*.gns3a /home/$userDir/GNS3/appliances/
+    #ln -f -s `pwd`/appliances/*.gns3a /home/gns3/GNS3/appliances/
 
     # cisco ios
     sudo mkdir /opt/gns3/images/IOS/
@@ -156,12 +125,12 @@ appliances () {
     sudo bash -c 'echo '$soma' > /opt/gns3/images/IOS/c3640-a3js-mz.124-25d.image.image.md5sum'
 
     # add templates and icons
-    $eco "\nCopying icons..."
+    $eco "\nCoping icons..."
     sudo cp icons/routerLinux.svg /usr/local/lib/python3.8/dist-packages/gns3server/symbols/classic/
 
     $eco "\nConfigure templates"
-    sudo cp configure/gns3_controller.conf /home/$userDir/.config/GNS3/2.2/
-    sudo chown gns3.gns3 /home/$userDir/.config/GNS3/2.2/*
+    sudo cp configure/gns3_controller.conf /home/gns3/.config/GNS3/2.2/
+    sudo chown gns3.gns3 /home/gns3/.config/GNS3/2.2/*
 }
 
 gns3Cli () {
@@ -176,9 +145,9 @@ gns3Cli () {
 
     # configurar a interface para usar o xfce4-terminal
     $eco "\nConfigure GNS3 gui to use xfce4-terminal"
-    sudo cp -f /home/$userDir/.config/GNS3/2.2/gns3_gui.conf /home/$userDir/.config/GNS3/2.2/gns3_gui.conf-bkp
-    sudo cp -f configure/gns3_gui.conf /home/$userDir/.config/GNS3/2.2/
-    sudo chown gns3.gns3 /home/$userDir/.config/GNS3/2.2/*
+    sudo cp -f /home/gns3/.config/GNS3/2.2/gns3_gui.conf /home/gns3/.config/GNS3/2.2/gns3_gui.conf-bkp
+    sudo cp -f configure/gns3_gui.conf /home/gns3/.config/GNS3/2.2/
+    sudo chown gns3.gns3 /home/gns3/.config/GNS3/2.2/*
 }
 
 
@@ -219,31 +188,6 @@ if [ "$installGui" = "y" ] || [ "$installGui" = "Y" ] ;  then
     confGNS3local
 else
     $eco "\nInstalling GNS3-gui canceled!!!\n"
-fi
-
-# instalar ambiente gráfico para acessar o GNS3 gui direto via VM - não só via sshConf
-$eco "\nInstall X/i3 to use ghraphical interface into de VM (not just from SSH connection)?"
-$eco "\n Attention: If you don't install it, you'll use only remote connection access (SSH or Web).\n"
-$eco "Install? \n[N/y]\n"
-read installX
-
-if [ "$installX" = "y" ] || [ "$installX" = "Y" ] ;  then
-    $eco "\nInstalling X/i3.\n"
-    confX
-else
-    $eco "\nInstalling X/i3 canceled!!!\n"
-fi
-
-# instalar imagem do OpenBSD do qemu
-$eco "\nInstall/copy OpenBSD image to use with Qemu\n"
-$eco "Install? \n[N/y]\n"
-read installOBSD
-
-if [ "$installOBSD" = "y" ] || [ "$installOBSD" = "Y" ] ;  then
-    $eco "\nInstalling/copying OpenBSD image.\n"
-    openBSDimg
-else
-    $eco "\nInstalling/copying OpenBSD image canceled!!!\n"
 fi
 
 #instalar cisto packet tracer
