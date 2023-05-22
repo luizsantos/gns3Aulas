@@ -11,7 +11,6 @@ ssh=0
 
 # hostname
 hostname="utfpr2023.cm"
-userDir=$(users)
 
 sshConf () {
     if [ $ssh -eq 0 ]; then
@@ -35,14 +34,16 @@ confHost () {
 
 confX () {
     $eco "\nInstaling some X11 packets to run GNS3 gui interface into de VM/host.\n"
-    apt update && apt install -y ubuntu-drivers-common mesa-utils mesa-utils-extra gnupg numlockx xautolock scrot xorg xserver-xorg xtightvncviewer qemu-system-gui
+    sudo apt install i3 ubuntu-drivers-common mesa-utils mesa-utils-extra gnupg numlockx xautolock scrot xorg xserver-xorg xtightvncviewer	    
+    
+    #sudo apt install -y xserver-xorg-core ubuntu-drivers-common mesa-utils mesa-utils-extra gnupg numlockx xautolock scrot xorg xserver-xorg xtightvncviewer qemu-system-gui
 
     $eco "\nCopying i3 config file\n"
-    mkdir -p /home/$userDir/.config/i3/
-    cp configure/i3-config /home/$userDir/.config/i3/config
+    sudo mkdir -p ~/.config/i3/
+    sudo cp configure/i3-config ~/.config/i3/config
 
     $eco "\nCopying xinitrc config file\n"
-    cp configure/xinitrc /home/$userDir/.xinitrc
+    sudo cp configure/xinitrc ~/.xinitrc
 
 }
 
@@ -59,9 +60,9 @@ confGNS3local () {
 
     # quando instala a interface gráfica desktop o server muda pedindo a autenticação da interface web, esta configuração vai desabilitar isso e por garantia o usuário/senha vai ser gns3.
     $eco "\nConfigure GNS3 server web password and auth"
-    sudo cp -f /home/$userDir/.config/GNS3/2.2/gns3_server.conf /home/$userDir/.config/GNS3/2.2/gns3_server.conf-bkp
-    sudo cp -f configure/gns3_server.conf /home/$userDir/.config/GNS3/2.2/gns3_server.conf
-    sudo chown gns3.gns3 /home/$userDir/.config/GNS3/2.2/*
+    sudo cp -f ~/.config/GNS3/2.2/gns3_server.conf ~/.config/GNS3/2.2/gns3_server.conf-bkp
+    sudo cp -f configure/gns3_server.conf ~/.config/GNS3/2.2/gns3_server.conf
+    sudo chown gns3.gns3 ~/.config/GNS3/2.2/*
 }
 
 # $1 - idGoogleFile - id of Google Drive File
@@ -113,10 +114,12 @@ ciscoPT (){
 
 openBSDimg () {
     $eco "\nDownloading OpenBSD qemu image...\n"
-    fileOBSD="/usr/local/lib/python3.8/dist-packages/gns3server/disks/obsd2023.qcow2"
+    fileOBSD="obsd2023.qcow2"
     md5OBSD="a315d9eb2e7d07dcd50f379e182651b1"
 
     gDriveDown "18dazxHHl_wiBLGfyzpM65-RWUvSgvxlJ" $fileOBSD $md5OBSD
+ 
+    sudo mv obsd2023.qcow2 /usr/local/lib/python3.8/dist-packages/gns3server/disks/
 
     $eco "\nOpenBSD qemu done...\n"
 
@@ -129,7 +132,7 @@ appliances () {
 
     # gerar links para a interface installGui
     #echo "\nGenerate links to templates/appliances gui...\n"
-    #ln -f -s `pwd`/appliances/*.gns3a /home/$userDir/GNS3/appliances/
+    #ln -f -s `pwd`/appliances/*.gns3a ~/GNS3/appliances/
 
     # cisco ios
     sudo mkdir /opt/gns3/images/IOS/
@@ -160,8 +163,8 @@ appliances () {
     sudo cp icons/routerLinux.svg /usr/local/lib/python3.8/dist-packages/gns3server/symbols/classic/
 
     $eco "\nConfigure templates"
-    sudo cp configure/gns3_controller.conf /home/$userDir/.config/GNS3/2.2/
-    sudo chown gns3.gns3 /home/$userDir/.config/GNS3/2.2/*
+    sudo cp configure/gns3_controller.conf ~/.config/GNS3/2.2/
+    sudo chown gns3.gns3 ~/.config/GNS3/2.2/*
 }
 
 gns3Cli () {
@@ -176,9 +179,9 @@ gns3Cli () {
 
     # configurar a interface para usar o xfce4-terminal
     $eco "\nConfigure GNS3 gui to use xfce4-terminal"
-    sudo cp -f /home/$userDir/.config/GNS3/2.2/gns3_gui.conf /home/$userDir/.config/GNS3/2.2/gns3_gui.conf-bkp
-    sudo cp -f configure/gns3_gui.conf /home/$userDir/.config/GNS3/2.2/
-    sudo chown gns3.gns3 /home/$userDir/.config/GNS3/2.2/*
+    sudo cp -f ~/.config/GNS3/2.2/gns3_gui.conf ~/.config/GNS3/2.2/gns3_gui.conf-bkp
+    sudo cp -f configure/gns3_gui.conf ~/.config/GNS3/2.2/
+    sudo chown gns3.gns3 ~/.config/GNS3/2.2/*
 }
 
 

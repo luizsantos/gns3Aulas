@@ -245,6 +245,18 @@ def shrink_disk():
     d.msgbox("Process completed, the GNS3 VM will reboot now")
     os.execvp("sudo", ['/usr/bin/sudo', "reboot"])
 
+def gns3_X():
+    """
+    Start GNS3 client GUI into X VM
+    """
+    if d.yesno("start GNS3 client/GUI into X VM using i3 - UTFPR-CM") != d.OK:
+        return
+    print("When do you finish the program press ENTER to continue...")
+    ret = os.system("startx")
+    if ret != 0:
+        d.msgbox("The program was terminate or something wrong happen!")
+        return
+
 
 def gns3_client():
     """
@@ -610,8 +622,9 @@ try:
         code, tag = d.menu("GNS3 {}".format(gns3_version()),
                            choices=[
 			    ("ajudaUTFPR", "Avisos para aulas Redes/Seguranca UTFPR-CM"),
-                            ("GNS3Client", "GNS3 Client - GUI - UTFPR-CM"),
-                            ("PacketTracerCisco", "CISCO PacketTracer- UTFPR-CM"),
+                            ("GNS3X", "GNS3 Client GUI into VM - UTFPR-CM"),
+                            ("GNS3Client", "GNS3 Client GUI over SSH - UTFPR-CM"),
+                            ("PacketTracerCisco", "CISCO PacketTracer over SSH - UTFPR-CM"),
 			    ("Information", "Display VM information"),
                             ("Channel", "Select the release channel"),
                             ("Upgrade", "Upgrade the GNS3 VM"),
@@ -670,6 +683,8 @@ try:
                 shrink_disk()
             elif tag == "GNS3Client":
                 gns3_client()
+            elif tag == "GNS3X":
+                gns3_X()
             elif tag == "PacketTracerCisco":
                 packet_tracer_cisco()
             elif tag == "ajudaUTFPR":
