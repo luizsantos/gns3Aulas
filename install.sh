@@ -34,7 +34,7 @@ confHost () {
 
 confX () {
     $eco "\nInstaling some X11 packets to run GNS3 gui interface into de VM/host.\n"
-    sudo apt install i3 ubuntu-drivers-common mesa-utils mesa-utils-extra gnupg numlockx xautolock scrot xorg xserver-xorg xtightvncviewer	    
+    sudo apt install -y i3 ubuntu-drivers-common mesa-utils mesa-utils-extra gnupg numlockx xautolock scrot xorg xserver-xorg xtightvncviewer gns3-gui xfce4-terminal
     
     #sudo apt install -y xserver-xorg-core ubuntu-drivers-common mesa-utils mesa-utils-extra gnupg numlockx xautolock scrot xorg xserver-xorg xtightvncviewer qemu-system-gui
 
