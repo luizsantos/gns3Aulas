@@ -44,15 +44,15 @@ $ ./install.sh
     > Se for executar a VM dentro da VM habilite o Nested Vritualization, leia: <https://luizsantos.github.io/cyberinfra/docs/VMs/configurarNestedVM>.
 * Instalar o [i3](https://i3wm.org/) e ambiente gráfico do Linux, isso permitirá executar a interface gráfica do GNS3 dentro da própria VM.
     Alguns comandos do i3 neste ambiente:
-        * Alt+Enter - Abrir terminal;
-        * Alt+g - Abrir GNS3;
-        * Alt+Delete - Fechar janela;
-        * Alt+d - procurar e executar algum programa/aplicativo (conforme você for digitando, sugestões de programas serão apresentados no topo da tela);
-        * Alt+algum número - Abrir um novo ambiente;
-        * Alt+Shift e algum numero - Mover janela para o ambiente;
-        * Alt+Shift e setas - Mover Janelas;
-        * Alt+r e setas - Alterar tamanho das janelas - depois dê Esc para sair deste modo;
-        * Alt+Shift+e - Sair do i3.
+    * Alt+Enter - Abrir terminal;
+    * Alt+g - Abrir GNS3;
+    * Alt+Delete - Fechar janela;
+    * Alt+d - procurar e executar algum programa/aplicativo (conforme você for digitando, sugestões de programas serão apresentados no topo da tela);
+    * Alt+algum número - Abrir um novo ambiente;
+    * Alt+Shift e algum numero - Mover janela para o ambiente;
+    * Alt+Shift e setas - Mover Janelas;
+    * Alt+r e setas - Alterar tamanho das janelas - depois dê Esc para sair deste modo;
+    * Alt+Shift+e - Sair do i3.
 
 # Atenção!
 > __Não apagar o diretório do projeto__, depois de terminar a instalação, pois as imagens dos roteadores ficarão dentro deste diretório para economizar espaço na VM.
