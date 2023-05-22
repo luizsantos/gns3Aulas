@@ -613,7 +613,7 @@ def kvm_control():
 
 
 vm_information()
-kvm_control()
+#kvm_control()
 
 # rsync -e "ssh -o StrictHostKeyChecking=no" -rtz /opt/gns3 gns3@IP:/opt
 
