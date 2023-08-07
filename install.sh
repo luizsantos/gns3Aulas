@@ -100,11 +100,11 @@ $eco "\nVerify if $2 exists and it's correct..."
 
 ciscoPT (){
     $eco "\nDownloading Cisco Packet Tracer...\n"
-
+    # # https://drive.google.com/file/d/1bNmQjB72YIwwA98hl1XRtwnFOvmYzSrK/view?usp=drive_link
     fileCPT="CiscoPacketTracer_Ubuntu_64bit.deb"
-    md5_CPT="ec93f1258ff9d8005882007e8e23cfe6"
+    md5_CPT="a052156107f1fba3c2316085827e1223"
 
-	gDriveDown "1mup__k4iq0PwcBxlE1XWTzmCl30nGomk" $fileCPT $md5_CPT
+	gDriveDown "1bNmQjB72YIwwA98hl1XRtwnFOvmYzSrK" $fileCPT $md5_CPT
 
 	$eco "\nInstall Cisco Packet Trace.\n"
 	sudo apt -y install ./CiscoPacketTracer_Ubuntu_64bit.deb
