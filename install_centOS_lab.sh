@@ -13,10 +13,11 @@ confGNS3local () {
     sudo cp -f configure/gns3.service /lib/systemd/system/gns3.service
 
     # quando instala a interface gráfica desktop o server muda pedindo a autenticação da interface web, esta configuração vai desabilitar isso e por garantia o usuário/senha vai ser gns3.
-    $eco "\nConfigure GNS3 server web password and auth"
-    sudo cp -f $dirUsu/.config/GNS3/2.2/gns3_server.conf $dirUsu/.config/GNS3/2.2/gns3_server.conf-bkp
-    sudo cp -f configure/gns3_server.conf $dirUsu/.config/GNS3/2.2/gns3_server.conf
-    sudo chown gns3.gns3 $dirUsu/.config/GNS3/2.2/*
+    #$eco "\nConfigure GNS3 server web password and auth"
+    #sudo mkdir -p $dirUsu/.config/GNS3/2.2/
+    #sudo cp -f $dirUsu/.config/GNS3/2.2/gns3_server.conf $dirUsu/.config/GNS3/2.2/gns3_server.conf-bkp
+    #sudo cp -f configure/gns3_server.conf $dirUsu/.config/GNS3/2.2/gns3_server.conf
+    #sudo chown -R aluno.aluno $dirUsu/.config/GNS3/2.2/
 }
 
 # $1 - idGoogleFile - id of Google Drive File
@@ -76,7 +77,7 @@ appliances () {
     #ln -f -s `pwd`/appliances/*.gns3a ~/GNS3/appliances/
 
     # cisco ios
-    sudo mkdir /opt/gns3/images/IOS/
+    sudo mkdir -p /opt/gns3/images/IOS/
 
     #download file
 
@@ -84,7 +85,7 @@ appliances () {
     md5_7200="3c4148f62acf56602ce3b371ebae60c9"
 
     gDriveDownVerify "1uR5e3nsfgvpRE9bNXSok4rZO4HCkqjET" $file7200 $md5_7200
-    sudo ln -f -s `pwd`/appliances/c7200-adventerprisek9-mz.124-24.T5.bin /opt/gns3/images/IOS/
+    sudo mv `pwd`/appliances/c7200-adventerprisek9-mz.124-24.T5.bin /opt/gns3/images/IOS/
     soma=`md5sum appliances/c7200-adventerprisek9-mz.124-24.T5.bin | awk '{print $1}'`
     sudo bash -c 'echo '$soma' > /opt/gns3/images/IOS/c7200-adventerprisek9-mz.124-24.T5.bin.md5sum'
 
@@ -95,17 +96,22 @@ appliances () {
     # cisco ios switch (na verdade é um router, mas vamos usar como switch
     gDriveDownVerify "1sKkWOzx0Cl-TvwGBQufpmmQerAYpSznM" $file3640 $md5_3640
 
-    sudo ln -f -s `pwd`/appliances/c3640-a3js-mz.124-25d.image /opt/gns3/images/IOS/
+    sudo mv `pwd`/appliances/c3640-a3js-mz.124-25d.image /opt/gns3/images/IOS/
     soma=`md5sum appliances/c3640-a3js-mz.124-25d.image| awk '{print $1}'`
     sudo bash -c 'echo '$soma' > /opt/gns3/images/IOS/c3640-a3js-mz.124-25d.image.image.md5sum'
+
+    # copying imagens to user
+    sudo mkdir -p /home/aluno/GNS3/images/IOS/
+    sudo ln -f -s /opt/gns3/images/IOS/* $dirUsu/GNS3/images/IOS/
 
     # add templates and icons
     $eco "\nCopying icons..."
     sudo cp icons/routerLinux.svg /usr/local/lib/python3.10/dist-packages/gns3server/symbols/classic/
 
-    $eco "\nConfigure templates"
+    $eco "\nConfigure templates - copynt controller"
+    sudo mkdir $dirUsu/.config/GNS3/2.2/
     sudo cp configure/gns3_controller.conf $dirUsu/.config/GNS3/2.2/
-    sudo chown gns3.gns3 $dirUsu/.config/GNS3/2.2/*
+    sudo chown -R aluno.aluno $dirUsu/.config/GNS3/2.2/
 }
 
 
@@ -140,4 +146,3 @@ fi
 
 # finalização
 $eco "\n\nFinished..."
-
