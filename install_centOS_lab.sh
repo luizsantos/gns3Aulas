@@ -148,6 +148,7 @@ $eco "\nInstall Cisco Packet Tracer (to access using SSH)? \n[N\y]\n"
 
 $eco "\nmod aluno"
 sudo chown -R aluno:aluno /home/aluno
+sudo apt install xfce4-terminal
 
 # finalização
 $eco "\n\nFinished..."
