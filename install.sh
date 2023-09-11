@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Esse script é para ser utilizado apenas na VM do GNS3 disponível no site oficial do GNS3. Na dúvida converse com o professor. USE POR SUA CONSTA E RISCO!
+
 # to execute:
 # $ sh install.sh
 # or
