@@ -12,7 +12,7 @@ eco="/bin/echo -e"
 ssh=0
 
 # hostname
-hostname="utfpr2023.cm"
+hostname="utfpr2024.cm"
 
 sshConf () {
     if [ $ssh -eq 0 ]; then
@@ -162,7 +162,7 @@ appliances () {
 
     # add templates and icons
     $eco "\nCopying icons..."
-    sudo cp icons/routerLinux.svg /usr/local/lib/python3.8/dist-packages/gns3server/symbols/classic/
+    sudo cp icons/*.svg /usr/local/lib/python3.8/dist-packages/gns3server/symbols/classic/
 
     $eco "\nConfigure templates"
     sudo cp configure/gns3_controller.conf ~/.config/GNS3/2.2/

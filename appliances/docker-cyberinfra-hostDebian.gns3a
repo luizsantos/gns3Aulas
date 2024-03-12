@@ -1,0 +1,19 @@
+{
+    "name": "Host",
+    "category": "guest",
+    "description": "Linux with tools to use/test a Computer Network like a Client (web browser, ftp, ssh, dhcp, telnet, DNS clients in text mode...) - I use this image in the GNS3 to simulate a Linux Debian/Ubuntu hosts with IPv6.",
+    "vendor_name": "cyberinfra",
+    "vendor_url": "https://luizsantos.github.io/cyberinfra/",
+    "product_name": "Debian",
+    "registry_version": 1,
+    "status": "stable",
+    "maintainer": "Prof. Luiz Arthur",
+    "maintainer_email": "luiz.arthur.feitosa.santos@gmail.com",
+    "symbol": "docker_debian.svg",
+    "docker": {
+        "adapters": 1,
+        "image": "luizarthur/cyberinfra:hostDeb11",
+        "console_type": "telnet",
+        "extra_volumes": ["/etc", "/usr", "/home", "/lib", "/lib64", "/var"]
+    }
+}
