@@ -79,14 +79,14 @@ No exemplo da Figura 1, a URL a ser acessada é a http://192.168.56.31
 
 * De posse da URL informada na VM, o próximo passo é abrir um navegar na máquina hospedeira (não na VM, mas sim na máquina real). Por exemplo você deve abrir o seu Firefox ou Google Chrome e digital a URL obtida, tal como o exemplo da Figura 2:
 
-| <img src="img/web1.png" alt="image" width="80%" height="auto"> |
+| <img src="img/web1.png" alt="image" width="100%" height="auto"> |
 |:--:|
 | Figura 2 - Interface Web para criação de projetos no GNS3 |
 
 No exemplo da figura anterior é possível criar um projeto no GNS3, mas também seria possível abrir um já existente (que não é o caso da imagem).
 Após isso é só inserir/alterar os elementos de rede no GNS3, tal como ilustra a Figura 3.
 
-| <img src="img/web2.png" alt="image" width="80%" height="auto"> |
+| <img src="img/web2.png" alt="image" width="100%" height="auto"> |
 |:--:|
 | Figura 3 - Interface Web com um projeto do GNS3 em execução |
 
