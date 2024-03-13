@@ -33,16 +33,22 @@ $ ./install.sh
 ```
 
 4. Após isso responda as perguntas do script, que basicamente são:
-* Instalar appliances/templates no GNS3?
+
+* Instalar appliances/templates no GNS3? (responder sim para essa é praticamente obrigatório)
+
 > Os appliances são:
 > i. um host Linux para simular clientes de rede no modo texto - é um docker;
 > ii. um roteador Linux (com o Quagga); iii. um roteador Cisco 7200;
 > iv. um switch Camada 3 Cisco 3640 (estou usando esse como switch, pois o GNS3 tem problemas com switchs Cisco L2, mas ele é também um roteador - não quero usar o qemu);
-* Instalar o GNS3-gui, para acessar o GNS3 com uma interface gráfica desktop, via X11/SSH?
-* Instalar o Cisco Packet Tracer para usar via X11/SSH? (útil para alunos que não têm problemas em instalar o Cisco Packet Tracer - assim temos dois simuladores na mesma VM).
-* Instalar a imgagem da VM do OpenBSD - utilizada em algumas aulas de Redes2
-    > Se for executar a VM dentro da VM habilite o Nested Vritualization, leia: <https://luizsantos.github.io/cyberinfra/docs/VMs/configurarNestedVM>.
-* Instalar o [i3](https://i3wm.org/) e ambiente gráfico do Linux, isso permitirá executar a interface gráfica do GNS3 dentro da própria VM.
+
+* (OPCIONAL) Instalar o GNS3-gui, para acessar o GNS3 com uma interface gráfica desktop, via X11/SSH?
+
+> Caso você não faça esse passo o acesso será apenas via interface Web, que é o mais recomendável, pois alguns sistemas dão muito trabalho para acessar o gráfico via SSH.
+
+* (OPCIONAL) Instalar o [i3](https://i3wm.org/) e ambiente gráfico do Linux, isso permitirá executar a interface gráfica do GNS3 dentro da própria VM.
+
+> Caso você faça esse passo, entende-se que você vai utilizar o GNS3 dentro da própria VM e não via interface Web (que é o mais recomendado). Esse passo só faz sentido se você disse sim para o passo anterior (instalar GNS3-gui).
+
     Alguns comandos do i3 neste ambiente:
     * Alt+Enter - Abrir terminal;
     * Alt+g - Abrir GNS3;
@@ -56,3 +62,17 @@ $ ./install.sh
 
 # Atenção!
 > __Não apagar o diretório do projeto__, depois de terminar a instalação, pois as imagens dos roteadores ficarão dentro deste diretório para economizar espaço na VM.
+
+5. Acesso a VM via interface Web
+
+| <img src="img/vm.png" alt="image" width="40%" height="auto"> |
+|:--:|
+| Figura 1 - VM em execução no VirtualBox |
+
+| <img src="img/web1.png" alt="image" width="40%" height="auto"> |
+|:--:|
+| Figura 2 - Interface Web para criação de projetos no GNS3 |
+
+| <img src="img/web2.png" alt="image" width="40%" height="auto"> |
+|:--:|
+| Figura 3 - Interface Web com um projeto do GNS3 em execução |
