@@ -5,7 +5,7 @@ Esse script configura a VM do GNS3 incluindo/configurando todos os recursos nece
 
 ## Instalação
 
-Tudo inicia baixando a VM do GNS3 em <https://www.gns3.com/software/download-vm>. Depois de acessar tal VM via ``SSH -Y``, execute os passos/comandos a seguir:
+Tudo inicia baixando a VM do GNS3 em <https://www.gns3.com/software/download-vm>. Depois de acessar tal VM via ``SSH -Y`` (ver Figura 1), execute os passos/comandos a seguir:
 
 
 1. Clone o projeto ou faça o _download_:
@@ -63,7 +63,7 @@ $ ./install.sh
 # Atenção!
 > __Não apagar o diretório do projeto__, depois de terminar a instalação, pois as imagens dos roteadores ficarão dentro deste diretório para economizar espaço na VM.
 
-## Utilização da VM via interface Web
+## Utilização da VM GNS3 via interface Web
 
 Após a instalação, deduzindo que você vai utilizar a interface Web para acesso ao GNS (que é o mais recomendável), são necessários os seguintes passos:
 
@@ -91,3 +91,19 @@ Após isso é só inserir/alterar os elementos de rede no GNS3, tal como ilustra
 | Figura 3 - Interface Web com um projeto do GNS3 em execução |
 
 E boa diversão... ;-)
+
+## Utilização da VM GNS3 via ssh com interface gráfica
+
+No Linux basta abrir um terminal texto, fazer o aceso via SSH, tal como indicado na Figura 1, como por exemplo:
+
+```console
+ssh -Y gns3@192.168.56.31
+```
+
+> *Atenção*: o usuário e a senha são ``gns3``.
+
+Após acessar a VM via SSH, é só digitar o comando ``gns3``, que "magicamente" surgirá a interface gráfica do GNS3-gui na máquina hospedeira.
+
+Para tal acesso no Windows e MacOS, leia os textos dos seguintes links:
+* [Acesso via Windows](https://luizsantos.github.io/cyberinfra/docs/VMs/configurarVMWindows)
+* [Acesso via MacOS](https://luizsantos.github.io/cyberinfra/docs/VMs/configurarVMMac)
