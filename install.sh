@@ -240,31 +240,34 @@ else
 fi
 
 # instalar imagem do OpenBSD do qemu
-$eco "\nInstall/copy OpenBSD image to use with Qemu\n"
-$eco "Install? \n[N/y]\n"
-read installOBSD
+#$eco "\nInstall/copy OpenBSD image to use with Qemu\n"
+#$eco "Install? \n[N/y]\n"
+#read installOBSD
 
-if [ "$installOBSD" = "y" ] || [ "$installOBSD" = "Y" ] ;  then
-    $eco "\nInstalling/copying OpenBSD image.\n"
-    openBSDimg
-else
-    $eco "\nInstalling/copying OpenBSD image canceled!!!\n"
-fi
+#if [ "$installOBSD" = "y" ] || [ "$installOBSD" = "Y" ] ;  then
+#    $eco "\nInstalling/copying OpenBSD image.\n"
+#    openBSDimg
+#else
+#    $eco "\nInstalling/copying OpenBSD image canceled!!!\n"
+#fi
 
 #instalar cisto packet tracer
-$eco "\nInstall Cisco Packet Tracer (to access using SSH)? \n[N\y]\n"
-read installPT
-if [ "$installPT" = "s" ] || [ "$installPT" = "S" ] || [ "$installPT" = "y" ] || [ "$installPT" = "Y" ] ;  then
-    $eco "\nInstalling Cisco Packet Tracer.\n"
-    ciscoPT
-    sshConf
-else
-    $eco "\nInstalling Cisco Packet Tracer canceled!!!\n"
-fi
+#$eco "\nInstall Cisco Packet Tracer (to access using SSH)? \n[N\y]\n"
+#read installPT
+#if [ "$installPT" = "s" ] || [ "$installPT" = "S" ] || [ "$installPT" = "y" ] || [ "$installPT" = "Y" ] ;  then
+#    $eco "\nInstalling Cisco Packet Tracer.\n"
+#    ciscoPT
+#    sshConf
+#else
+#    $eco "\nInstalling Cisco Packet Tracer canceled!!!\n"
+#fi
 
-$eco "\nInstall vim-tiny to professor :-p"
+$eco "\nInstall vim-tiny to professor :-p\n"
 sudo apt install -y vim-tiny
 cp /usr/share/vim/vimrc ~/.vimrc
+
+$eco "\nRestart GNS3 Server\n"
+sudo systemctl restart gns3.service
 
 # finalização
 $eco "\n\nFinished..."
