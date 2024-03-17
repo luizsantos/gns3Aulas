@@ -63,7 +63,7 @@ $ ./install.sh
 # Atenção!
 > __Não apagar o diretório do projeto__, depois de terminar a instalação, pois as imagens dos roteadores ficarão dentro deste diretório para economizar espaço na VM.
 
-## Utilização da VM GNS3 via interface Web
+## Utilização da VM GNS3 via interface Web {#uso}
 
 Após a instalação, deduzindo que você vai utilizar a interface Web para acesso ao GNS (que é o mais recomendável), são necessários os seguintes passos:
 
